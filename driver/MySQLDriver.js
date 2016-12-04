@@ -19,6 +19,20 @@ function ndm_MySQLDriverProducer(mysql, MySQLDataContext, isDB,
      */
     constructor(conOpts) {
       this.conOpts = conOpts;
+
+      // Create a DataContext instance for the information_schema database.
+      const isConOpts = Object.assign({}, this.conOpts, {database: 'information_schema'});
+      const isCon     = mysql.createConnection(isConOpts);
+      const isDC      = new MySQLDataContext(isDB, isCon);
+
+      /**
+       * A MySQLSchemaGenerator instance.  The user can attach event handlers
+       * to the ADD_TABLE and ADD_COLUMN events.
+       * @type {MySQLSchemaGenerator}
+       * @name MySQLDriver#generator
+       * @public
+       */
+      this.generator = new MySQLSchemaGenerator(isDC);
     }
 
     /**
@@ -28,16 +42,8 @@ function ndm_MySQLDriverProducer(mysql, MySQLDataContext, isDB,
      * DataContext instance, which can be used for querying the database.
      */
     initialize() {
-      // Create a DataContext instance for the information_schema database.
-      const isConOpts = Object.assign({}, this.conOpts, {database: 'information_schema'});
-      const isCon     = mysql.createConnection(isConOpts);
-      const isDC      = new MySQLDataContext(isDB, isCon);
-
-      // Create the SchemaGenerator.
-      const generator = new MySQLSchemaGenerator(isDC);
-
       // Generate the schema, then create the DataContext instance.
-      return generator
+      return this.generator
         .generateSchema(this.conOpts.database)
         .then(schema =>
           new MySQLDataContext(new Database(schema), mysql.createPool(this.conOpts)));
