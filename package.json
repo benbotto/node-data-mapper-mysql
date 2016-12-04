@@ -1,0 +1,32 @@
+{
+  "name": "node-data-mapper-mysql",
+  "description": "node-data-mapper MySQL driver.",
+  "version": "1.1.1",
+  "author": {
+    "name": "Ben Botto"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/benbotto/node-data-mapper-mysql.git"
+  },
+  "engines": {
+    "node": ">=6.9.1"
+  },
+  "scripts": {
+    "start": "node ./app"
+  },
+  "dependencies": {
+    "deferred": "^0.7.5",
+    "glob": "^7.0.6",
+    "insulin": "^1.0.7",
+    "mysql": "^2.12.0",
+    "ndm-schema-generator-mysql": "^1.1.7",
+    "node-data-mapper": "^1.1.4"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jasmine-nodejs": "^1.5.4"
+  }
+}
