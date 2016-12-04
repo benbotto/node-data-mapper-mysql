@@ -1,7 +1,7 @@
 {
   "name": "node-data-mapper-mysql",
   "description": "node-data-mapper MySQL driver.",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "author": {
     "name": "Ben Botto"
   },
