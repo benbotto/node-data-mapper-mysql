@@ -14,10 +14,8 @@
     "node": ">=6.9.1"
   },
   "scripts": {
-    "start": "node ./app"
   },
   "dependencies": {
-    "deferred": "^0.7.5",
     "glob": "^7.0.6",
     "insulin": "^1.0.7",
     "mysql": "^2.12.0",
