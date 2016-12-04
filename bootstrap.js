@@ -9,8 +9,9 @@ const scripts = (require('./grunt/scriptGarner.js'))().app;
 // Static dependencies.
 insulin.factory('mysql', () => require('mysql'))
 
-// Node-data-mapper registers itself with insulin under the ndm namespace.
+// node-data-mapper registers itself with insulin under the ndm namespace.
 require('node-data-mapper');
+require('ndm-schema-generator-mysql');
 
 // Application (dynamic) dependencies.
 scripts.forEach(script => require(script));
