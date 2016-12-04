@@ -5,6 +5,7 @@
   "author": {
     "name": "Ben Botto"
   },
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git://github.com/benbotto/node-data-mapper-mysql.git"
