@@ -18,7 +18,7 @@ function ndm_MySQLDriverProducer(mysql, MySQLDataContext, isDB,
      * https://github.com/mysqljs/mysql#connection-options}).
      */
     constructor(conOpts) {
-      this.conOpts = conOpts;
+      this.conOpts = Object.assign({}, conOpts, {queryFormat});
 
       // Create a DataContext instance for the information_schema database.
       const isConOpts = Object.assign({}, this.conOpts, {database: 'information_schema'});
@@ -33,6 +33,22 @@ function ndm_MySQLDriverProducer(mysql, MySQLDataContext, isDB,
        * @public
        */
       this.generator = new MySQLSchemaGenerator(isDC);
+
+      // Custom parameter escaping.  Comes directly from here:
+      // https://github.com/mysqljs/mysql#custom-format
+      function queryFormat(query, values) {
+        if (!values)
+          return query;
+
+        return query.replace(/\:(\w+)/g, (txt, key) => {
+          // "this" is a Connection instance with an escape() function.
+          if (values.hasOwnProperty(key)) {
+            return this.escape(values[key]);
+          }
+
+          return txt;
+        });
+      }
     }
 
     /**
