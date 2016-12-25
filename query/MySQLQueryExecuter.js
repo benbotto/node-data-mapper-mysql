@@ -30,45 +30,53 @@ function ndm_MySQLQueryExecuterProducer(QueryExecuter) {
     /**
      * Execute a select query.
      * @param {string} query - The SQL to execute.
+     * @param {Object} params - An object containing query parameters for the
+     * query.  Each parameter will be preceded with a colon in query.
      * @param {QueryExecuter~selectCallback} callback - A callback function
      * that is called after the query is executed.
      * @return {void}
      */
-    select(query, callback) {
-      this.pool.query(query, callback);
+    select(query, params, callback) {
+      this.pool.query(query, params, callback);
     }
 
     /**
      * Execute an insert query.
      * @param {string} query - The SQL to execute.
+     * @param {Object} params - An object containing query parameters for the
+     * query.  Each parameter will be preceded with a colon in query.
      * @param {QueryExecuter~insertCallback} callback - A callback function
      * that is called after the query is executed.
      * @return {void}
      */
-    insert(query, callback) {
-      this.pool.query(query, callback);
+    insert(query, params, callback) {
+      this.pool.query(query, params, callback);
     }
 
     /**
      * Execute an update query.
      * @param {string} query - The SQL to execute.
+     * @param {Object} params - An object containing query parameters for the
+     * query.  Each parameter will be preceded with a colon in query.
      * @param {QueryExecuter~mutateCallback} callback - A callback function
      * that is called after the query is executed.
      * @return {void}
      */
-    update(query, callback) {
-      this.pool.query(query, callback);
+    update(query, params, callback) {
+      this.pool.query(query, params, callback);
     }
 
     /**
      * Execute a delete query.
      * @param {string} query - The SQL to execute.
+     * @param {Object} params - An object containing query parameters for the
+     * query.  Each parameter will be preceded with a colon in query.
      * @param {QueryExecuter~mutateCallback} callback - A callback function
      * that is called after the query is executed.
      * @return {void}
      */
-    delete(query, callback) {
-      this.pool.query(query, callback);
+    delete(query, params, callback) {
+      this.pool.query(query, params, callback);
     }
   }
 

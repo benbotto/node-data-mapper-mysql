@@ -32,10 +32,11 @@ describe('MySQLQueryExecuter()', function() {
   describe('.select()', function() {
     it('uses pool.query() to execute the select statements.', function() {
       const callback = {}; // Only checking the argument.  Normally this is a function.
+      const params   = {};
       const query    = 'SELECT userID FROM users';
-      qe.select(query, callback);
+      qe.select(query, params, callback);
 
-      expect(con.query.calls.argsFor(0)).toEqual([query, callback]);
+      expect(con.query.calls.argsFor(0)).toEqual([query, params, callback]);
     });
   });
 
@@ -45,10 +46,11 @@ describe('MySQLQueryExecuter()', function() {
   describe('.insert()', function() {
     it('uses pool.query() to execute insert statements.', function() {
       const callback = {};
-      const query    = 'INSERT INTO users (userName) VALUES (\'foo bar\')';
-      qe.insert(query, callback);
+      const params   = {};
+      const query    = 'INSERT INTO users (userName) VALUES (:username)';
+      qe.insert(query, params, callback);
 
-      expect(con.query.calls.argsFor(0)).toEqual([query, callback]);
+      expect(con.query.calls.argsFor(0)).toEqual([query, params, callback]);
     });
   });
 
@@ -58,10 +60,11 @@ describe('MySQLQueryExecuter()', function() {
   describe('.delete()', function() {
     it('uses pool.query() to execute delete statements.', function() {
       const callback = {};
+      const params   = {};
       const query    = 'DELETE FROM users WHERE userID = 1';
-      qe.delete(query, callback);
+      qe.delete(query, params, callback);
 
-      expect(con.query.calls.argsFor(0)).toEqual([query, callback]);
+      expect(con.query.calls.argsFor(0)).toEqual([query, params, callback]);
     });
   });
 
@@ -70,11 +73,12 @@ describe('MySQLQueryExecuter()', function() {
    */
   describe('.update()', function() {
     it('uses pool.query() to execute update statements.', function() {
-      const callback = null;
-      const query = "UPDATE users SET firstName = 'Joe' WHERE userID = 2";
-      qe.update(query, callback);
+      const callback = {};
+      const params   = {};
+      const query    = "UPDATE users SET firstName = 'Joe' WHERE userID = 2";
+      qe.update(query, params, callback);
 
-      expect(con.query.calls.argsFor(0)).toEqual([query, callback]);
+      expect(con.query.calls.argsFor(0)).toEqual([query, params, callback]);
     });
   });
 });
