@@ -6,9 +6,9 @@ require('insulin').factory('ndm_MySQLInsert',
 
 function ndm_MySQLInsertProducer(ModelTraverse, Insert, ParameterList) {
   /**
-   * A Query class that represents an INSERT query.  Instances of the class can
-   * be used to insert models in a database.
-   * @extends Query
+   * A Query class that represents an INSERT query for MySQL.  Instances of the
+   * class can be used to insert models in a database.
+   * @extends Insert
    */
   class MySQLInsert extends Insert {
     /**
