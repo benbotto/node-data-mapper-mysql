@@ -50,4 +50,27 @@ describe('MySQLDataContext()', function() {
       expect(insert.database).toBe(db2);
     });
   });
+
+  /**
+   * From.
+   */
+  describe('.from()', function() {
+    it('returns a MySQLFromAdapter instance.', function() {
+      const dc               = new MySQLDataContext(db, pool);
+      const from             = dc.from({table: 'users'});
+      const MySQLFromAdapter = insulin.get('ndm_MySQLFromAdapter');
+
+      expect(from instanceof MySQLFromAdapter).toBe(true);
+    });
+
+    it('accepts an optional database argument, and passes it to the MySQLFromAdapter ctor.',
+      function() {
+      const dc   = new MySQLDataContext(db, pool);
+      const db2  = cloneDB();
+      const from = dc.from({table: 'users'}, db2);
+
+      expect(from.database).toBe(db2);
+    });
+  });
 });
+

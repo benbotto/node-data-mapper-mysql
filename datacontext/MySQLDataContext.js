@@ -2,11 +2,11 @@
 
 require('insulin').factory('ndm_MySQLDataContext',
   ['ndm_DataContext', 'ndm_MySQLEscaper', 'ndm_MySQLQueryExecuter',
-   'ndm_MySQLInsert'],
+   'ndm_MySQLInsert', 'ndm_MySQLFromAdapter'],
   ndm_MySQLDataContextProducer);
 
 function ndm_MySQLDataContextProducer(DataContext, MySQLEscaper, MySQLQueryExecuter,
-  MySQLInsert) {
+  MySQLInsert, MySQLFromAdapter) {
   /** 
    * A MySQL-specialized DataContext.
    * @extends DatContext
@@ -34,6 +34,23 @@ function ndm_MySQLDataContextProducer(DataContext, MySQLEscaper, MySQLQueryExecu
     insert(model, database) {
       database = database || this.database;
       return new MySQLInsert(database, this.escaper, this.queryExecuter, model);
+    }
+
+    /**
+     * Create a new {@link MySQLFromAdapter} instance, which can then be used to
+     * SELECT, DELETE, or UPDATE.
+     * @see MySQLFromAdapter
+     * @see From
+     * @param {TableMetaList~TableMeta|string} meta - See the {@link From}
+     * constructor.
+     * @param {Database} [database] - An optional Database instance.  If
+     * passed, this parameter is used instead of the Database that's provided
+     * to the ctor.
+     * @return {MySQLFromAdapter} A MySQLFromAdapter instance.
+     */
+    from(meta, database) {
+      database = database || this.database;
+      return new MySQLFromAdapter(database, this.escaper, this.queryExecuter, meta);
     }
   }
 
