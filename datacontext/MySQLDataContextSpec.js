@@ -42,7 +42,7 @@ describe('MySQLDataContext()', function() {
       expect(insert instanceof MySQLInsert).toBe(true);
     });
 
-    it('accepts an optional database argument, and passes it to the Insert ctor.', function() {
+    it('accepts an optional database argument, and passes it to the MySQLInsert ctor.', function() {
       const dc     = new MySQLDataContext(db, pool);
       const db2    = cloneDB();
       const insert = dc.insert({}, db2);
