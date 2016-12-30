@@ -24,15 +24,6 @@ function ndm_MySQLEscaperProducer(mysql, Escaper) {
     escapeProperty(prop) {
       return mysql.escapeId(prop, true);
     }
-
-    /**
-     * Escape a literal, such as a string or a number.
-     * @param literal {any} - The literal to escape, which is escaped based on its type.
-     * @return {string} The escaped literal, as a string.
-     */
-    escapeLiteral(literal) {
-      return mysql.escape(literal);
-    }
   }
 
   return MySQLEscaper;
