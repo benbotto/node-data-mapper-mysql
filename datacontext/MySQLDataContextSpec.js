@@ -6,6 +6,13 @@ describe('MySQLDataContext()', function() {
   const db               = insulin.get('ndm_testDB');
   const pool             = {};
 
+  // Helper function to "clone" the db instance.
+  function cloneDB() {
+    const Database = insulin.get('ndm_Database');
+
+    return new Database(JSON.parse(JSON.stringify(db)));
+  }
+
   /**
    * Ctor.
    */
@@ -20,6 +27,27 @@ describe('MySQLDataContext()', function() {
     it('passes the pool to the MySQLQueryExecuter constructor.', function() {
       const dc = new MySQLDataContext(db, pool);
       expect(dc.queryExecuter.pool).toBe(pool);
+    });
+  });
+
+  /**
+   * Insert.
+   */
+  describe('.insert()', function() {
+    it('returns an MySQLInsert instance.', function() {
+      const dc          = new MySQLDataContext(db, pool);
+      const insert      = dc.insert({});
+      const MySQLInsert = insulin.get('ndm_MySQLInsert');
+
+      expect(insert instanceof MySQLInsert).toBe(true);
+    });
+
+    it('accepts an optional database argument, and passes it to the Insert ctor.', function() {
+      const dc     = new MySQLDataContext(db, pool);
+      const db2    = cloneDB();
+      const insert = dc.insert({}, db2);
+
+      expect(insert.database).toBe(db2);
     });
   });
 });
