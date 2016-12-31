@@ -2,11 +2,11 @@
 
 require('insulin').factory('ndm_MySQLDataContext',
   ['ndm_DataContext', 'ndm_MySQLEscaper', 'ndm_MySQLQueryExecuter',
-   'ndm_MySQLInsert', 'ndm_MySQLFromAdapter'],
+   'ndm_MySQLInsert', 'ndm_MySQLFromAdapter', 'ndm_MySQLUpdateModel'],
   ndm_MySQLDataContextProducer);
 
 function ndm_MySQLDataContextProducer(DataContext, MySQLEscaper, MySQLQueryExecuter,
-  MySQLInsert, MySQLFromAdapter) {
+  MySQLInsert, MySQLFromAdapter, MySQLUpdateModel) {
   /** 
    * A MySQL-specialized DataContext.
    * @extends DatContext
@@ -51,6 +51,22 @@ function ndm_MySQLDataContextProducer(DataContext, MySQLEscaper, MySQLQueryExecu
     from(meta, database) {
       database = database || this.database;
       return new MySQLFromAdapter(database, this.escaper, this.queryExecuter, meta);
+    }
+
+    /**
+     * Create a new {@link MySQLUpdateModel} instance that can be used to
+     * UPDATE a model by ID.  For complex UPDATE operations, use the {@link
+     * DataContext#from} method to obtain a {@link FromAdapter} instance, and
+     * then call {@link FromAdapter#update} on that instance.
+     * @param {Object} model - See the {@link UpdateModel} constructor.
+     * @param {Database} [database] - An optional Database instance.  If
+     * passed, this parameter is used instead of the Database that's provided
+     * to the ctor.
+     * @return {MySQLUpdateModel} A MySQLUpdateModel instance.
+     */
+    update(model, database) {
+      database = database || this.database;
+      return new MySQLUpdateModel(database, this.escaper, this.queryExecuter, model);
     }
   }
 

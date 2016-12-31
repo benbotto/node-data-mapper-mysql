@@ -72,5 +72,27 @@ describe('MySQLDataContext()', function() {
       expect(from.database).toBe(db2);
     });
   });
+
+  /**
+   * Update.
+   */
+  describe('.update()', function() {
+    it('returns a MySQLUpdateModel instance.', function() {
+      const dc               = new MySQLDataContext(db, pool);
+      const del              = dc.update({});
+      const MySQLUpdateModel = insulin.get('ndm_MySQLUpdateModel');
+
+      expect(del instanceof MySQLUpdateModel).toBe(true);
+    });
+
+    it('accepts an optional database argument, and passes it to the ' +
+      'MySQLUpdateModel ctor.', function() {
+      const dc  = new MySQLDataContext(db, pool);
+      const db2 = cloneDB();
+      const del = dc.update({}, db2);
+
+      expect(del.database).toBe(db2);
+    });
+  });
 });
 
