@@ -87,14 +87,13 @@ describe('MySQLFromAdapter()', function() {
   /**
    * Update.
    */
-  xdescribe('.update()', function() {
-    it('extends Update.', function() {
-      const Update = insulin.get('ndm_Update');
-      const upd    = new MySQLFromAdapter(db, escaper, qryExec, 'users u')
-        .where({$eq: {'u.userID': 1}})
+  describe('.update()', function() {
+    it('returns a MySQLUpdate instance.', function() {
+      const MySQLUpdate = insulin.get('ndm_MySQLUpdate');
+      const upd         = new MySQLFromAdapter(db, escaper, qryExec, 'users u')
         .update({'u.firstName': 'Joe'});
 
-      expect(upd instanceof Update).toBe(true);
+      expect(upd instanceof MySQLUpdate).toBe(true);
     });
 
     it('passes the model to the Update constructor.', function() {

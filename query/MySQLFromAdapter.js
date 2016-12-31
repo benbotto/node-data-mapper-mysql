@@ -1,10 +1,10 @@
 'use strict';
 
 require('insulin').factory('ndm_MySQLFromAdapter',
-  ['ndm_FromAdapter', 'ndm_MySQLSelect', 'ndm_Update', 'ndm_Delete'],
+  ['ndm_FromAdapter', 'ndm_MySQLSelect', 'ndm_MySQLUpdate', 'ndm_Delete'],
   ndm_MySQLFromAdapterProducer);
 
-function ndm_MySQLFromAdapterProducer(FromAdapter, MySQLSelect, Update, Delete) {
+function ndm_MySQLFromAdapterProducer(FromAdapter, MySQLSelect, MySQLUpdate, Delete) {
   /**
    * An specialization of the FromAdapter class for MySQL.
    * @extends FromAdapter
@@ -39,10 +39,10 @@ function ndm_MySQLFromAdapterProducer(FromAdapter, MySQLSelect, Update, Delete) 
      * Update a table.
      * @param {Object} model - The model describing what to update.
      * @see Update
-     * @return {Update} An Update instance that can be executed.
+     * @return {MySQLUpdate} A MySQLUpdate instance that can be executed.
      */
     update(model) {
-      return new Update(this, model);
+      return new MySQLUpdate(this, model);
     }
   }
 
