@@ -13,7 +13,7 @@ function ndm_MySQLFromAdapterProducer(FromAdapter, MySQLSelect, MySQLUpdate, MyS
     /**
      * Select from the table.
      * @see Select#select
-     * @param {...(object|string)=} cols - An optional set of columns to select.
+     * @param {...(object|string)} [cols] - An optional set of columns to select.
      * @return {MySQLSelect} A MySQLSelect instance that can be executed.
      */
     select(...cols) {
@@ -26,7 +26,7 @@ function ndm_MySQLFromAdapterProducer(FromAdapter, MySQLSelect, MySQLUpdate, MyS
 
     /**
      * Delete from the table.
-     * @param {string} tableAlias - The unique alias of the table from which
+     * @param {string} [tableAlias] - The unique alias of the table from which
      * records will be deleted.  Optional, defaults to the alias of the from
      * table.
      * @return {MySQLDelete} A MySQLDelete instance that can be executed.
