@@ -94,5 +94,27 @@ describe('MySQLDataContext()', function() {
       expect(del.database).toBe(db2);
     });
   });
+
+  /**
+   * Delete.
+   */
+  describe('.delete()', function() {
+    it('returns a MySQLDeleteModel instance.', function() {
+      const dc               = new MySQLDataContext(db, pool);
+      const del              = dc.delete({});
+      const MySQLDeleteModel = insulin.get('ndm_MySQLDeleteModel');
+
+      expect(del instanceof MySQLDeleteModel).toBe(true);
+    });
+
+    it('accepts an optional database argument, and passes it to the ' +
+      'MySQLDeleteModel ctor.', function() {
+      const dc  = new MySQLDataContext(db, pool);
+      const db2 = cloneDB();
+      const del = dc.delete({}, db2);
+
+      expect(del.database).toBe(db2);
+    });
+  });
 });
 

@@ -2,11 +2,12 @@
 
 require('insulin').factory('ndm_MySQLDataContext',
   ['ndm_DataContext', 'ndm_MySQLEscaper', 'ndm_MySQLQueryExecuter',
-   'ndm_MySQLInsert', 'ndm_MySQLFromAdapter', 'ndm_MySQLUpdateModel'],
+   'ndm_MySQLInsert', 'ndm_MySQLFromAdapter', 'ndm_MySQLUpdateModel',
+   'ndm_MySQLDeleteModel'],
   ndm_MySQLDataContextProducer);
 
 function ndm_MySQLDataContextProducer(DataContext, MySQLEscaper, MySQLQueryExecuter,
-  MySQLInsert, MySQLFromAdapter, MySQLUpdateModel) {
+  MySQLInsert, MySQLFromAdapter, MySQLUpdateModel, MySQLDeleteModel) {
   /** 
    * A MySQL-specialized DataContext.
    * @extends DatContext
@@ -67,6 +68,22 @@ function ndm_MySQLDataContextProducer(DataContext, MySQLEscaper, MySQLQueryExecu
     update(model, database) {
       database = database || this.database;
       return new MySQLUpdateModel(database, this.escaper, this.queryExecuter, model);
+    }
+
+    /**
+     * Create a new {@link MySQLDeleteModel} instance that can be used to
+     * delete a model by ID.  For complex DELETE operations, use the {@link
+     * DataContext#from} method to obtain a {@link FromAdapter} instance, and
+     * then call {@link FromAdapter#delete} on that instance.
+     * @param {Object} model - See the {@link DeleteModel} constructor.
+     * @param {Database} [database] - An optional Database instance.  If
+     * passed, this parameter is used instead of the Database that's provided
+     * to the ctor.
+     * @return {MySQLDeleteModel} A MySQLDeleteModel instance.
+     */
+    delete(model, database) {
+      database = database || this.database;
+      return new MySQLDeleteModel(database, this.escaper, this.queryExecuter, model);
     }
   }
 
