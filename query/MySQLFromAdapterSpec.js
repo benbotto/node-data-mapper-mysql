@@ -62,24 +62,26 @@ describe('MySQLFromAdapter()', function() {
   /**
    * Delete.
    */
-  xdescribe('.delete()', function() {
-    it('returns a Delete instance.', function() {
-      const Delete = insulin.get('ndm_Delete');
-      const del    = new MySQLFromAdapter(db, escaper, qryExec, 'users')
+  describe('.delete()', function() {
+    it('returns a MySQLDelete instance.', function() {
+      const MySQLDelete = insulin.get('ndm_MySQLDelete');
+      const del         = new MySQLFromAdapter(db, escaper, qryExec, 'users')
         .where({$eq: {'users.userID': 1}})
         .delete();
 
-      expect(del instanceof Delete).toBe(true);
+      expect(del instanceof MySQLDelete).toBe(true);
     });
 
     it('can be provided an optional table alias.', function() {
       const del    = new MySQLFromAdapter(db, escaper, qryExec, 'users u')
         .where({$eq: {'u.userID': 1}})
-        .delete();
+        .innerJoin('u.phone_numbers pn')
+        .delete('pn');
 
       expect(del.toString()).toBe(
-        'DELETE  `u`\n' +
+        'DELETE  `pn`\n' +
         'FROM    `users` AS `u`\n' +
+        'INNER JOIN `phone_numbers` AS `pn` ON `u`.`userID` = `pn`.`userID`\n' + 
         'WHERE   `u`.`userID` = 1');
     });
   });

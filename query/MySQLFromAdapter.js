@@ -1,10 +1,10 @@
 'use strict';
 
 require('insulin').factory('ndm_MySQLFromAdapter',
-  ['ndm_FromAdapter', 'ndm_MySQLSelect', 'ndm_MySQLUpdate', 'ndm_Delete'],
+  ['ndm_FromAdapter', 'ndm_MySQLSelect', 'ndm_MySQLUpdate', 'ndm_MySQLDelete'],
   ndm_MySQLFromAdapterProducer);
 
-function ndm_MySQLFromAdapterProducer(FromAdapter, MySQLSelect, MySQLUpdate, Delete) {
+function ndm_MySQLFromAdapterProducer(FromAdapter, MySQLSelect, MySQLUpdate, MySQLDelete) {
   /**
    * An specialization of the FromAdapter class for MySQL.
    * @extends FromAdapter
@@ -29,10 +29,10 @@ function ndm_MySQLFromAdapterProducer(FromAdapter, MySQLSelect, MySQLUpdate, Del
      * @param {string} tableAlias - The unique alias of the table from which
      * records will be deleted.  Optional, defaults to the alias of the from
      * table.
-     * @return {Delete} A Delete instance that can be executed.
+     * @return {MySQLDelete} A MySQLDelete instance that can be executed.
      */
     delete(tableAlias) {
-      return new Delete(this, tableAlias);
+      return new MySQLDelete(this, tableAlias);
     }
 
     /**
