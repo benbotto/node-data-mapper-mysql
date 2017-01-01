@@ -47,6 +47,25 @@ describe('MySQLDelete()', function() {
         userID: 42
       });
     });
+
+    it('can use a table alias to delete from a joined in table.', function() {
+      const from      = getFrom('users u')
+        .innerJoin('u.phone_numbers pn')
+        .where({$eq: {'u.userID': ':userID'}}, {userID: 42});
+      const del       = new MySQLDelete(from, 'pn');
+      const queryMeta = del.buildQuery();
+
+      expect(queryMeta.sql).toBe(
+        'DELETE  `pn`\n' +
+        'FROM    `users` AS `u`\n' +
+        'INNER JOIN `phone_numbers` AS `pn` ON `u`.`userID` = `pn`.`userID`\n' +
+        'WHERE   `u`.`userID` = :userID'
+      );
+
+      expect(queryMeta.params).toEqual({
+        userID: 42
+      });
+    });
   });
 });
 
