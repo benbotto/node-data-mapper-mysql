@@ -85,6 +85,14 @@ function ndm_MySQLDataContextProducer(DataContext, MySQLEscaper, MySQLQueryExecu
       database = database || this.database;
       return new MySQLDeleteModel(database, this.escaper, this.queryExecuter, model);
     }
+
+    /**
+     * Shortcut to end the connection.
+     * @return {void}
+     */
+    end() {
+      this.queryExecuter.pool.end();
+    }
   }
 
   return MySQLDataContext;

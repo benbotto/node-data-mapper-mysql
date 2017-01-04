@@ -18,6 +18,10 @@ function ndm_MySQLDriverProducer(mysql, MySQLDataContext, isDB,
      * https://github.com/mysqljs/mysql#connection-options}).
      */
     constructor(conOpts) {
+      this.dataContext = null;
+
+      // Copy the connection options locally and add the queryFormat function
+      // (node-data-mapper uses :param format).
       this.conOpts = Object.assign({}, conOpts, {queryFormat});
 
       // Create a DataContext instance for the information_schema database.
@@ -61,8 +65,22 @@ function ndm_MySQLDriverProducer(mysql, MySQLDataContext, isDB,
       // Generate the schema, then create the DataContext instance.
       return this.generator
         .generateSchema(this.conOpts.database)
-        .then(schema =>
-          new MySQLDataContext(new Database(schema), mysql.createPool(this.conOpts)));
+        .then(schema => {
+          // The DataContext instance is stored locally for convenient access.
+          this.dataContext = new MySQLDataContext(new Database(schema), mysql.createPool(this.conOpts));
+
+          // Resolve with the DC.
+          return this.dataContext;
+        });
+    }
+
+    /**
+     * Shortcut method for ending the connection.
+     * @return {void}
+     */
+    end() {
+      if (this.dataContext)
+        this.dataContext.end();
     }
   }
 

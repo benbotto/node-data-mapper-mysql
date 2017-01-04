@@ -116,5 +116,18 @@ describe('MySQLDataContext()', function() {
       expect(del.database).toBe(db2);
     });
   });
+
+  /**
+   * End.
+   */
+  describe('.end()', function() {
+    it('calls end on the queryExecuter\'s pool.', function() {
+      const pool = jasmine.createSpyObj('pool', ['end']);
+      const dc   = new MySQLDataContext(db, pool);
+
+      dc.end();
+      expect(pool.end).toHaveBeenCalled();
+    });
+  });
 });
 

@@ -21,8 +21,8 @@ driver
   .then(function(dataContext) {
     console.log('Ready to execute queries.');
 
-    // Disconnect.
-    dataContext.queryExecuter.pool.end();
+    // Disconnect (driver.end() also works).
+    dataContext.end();
   })
   .catch(err => console.error('ERROR', err));
 
