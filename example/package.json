@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-data-mapper-mysql": "^1.1.4"
+    "node-data-mapper-mysql": "^1.1.20"
   }
 }
