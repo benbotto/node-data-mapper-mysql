@@ -1,7 +1,7 @@
 {
   "name": "node-data-mapper-mysql",
   "description": "node-data-mapper MySQL driver.",
-  "version": "1.1.18",
+  "version": "1.1.19",
   "author": {
     "name": "Ben Botto"
   },
@@ -18,8 +18,8 @@
     "glob": "^7.0.6",
     "insulin": "^1.0.7",
     "mysql": "^2.12.0",
-    "ndm-schema-generator-mysql": "^1.1.7",
-    "node-data-mapper": "^1.1.18"
+    "ndm-schema-generator-mysql": "^1.1.13",
+    "node-data-mapper": "^1.1.21"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
